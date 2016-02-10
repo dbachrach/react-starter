@@ -48,7 +48,7 @@ export default class DevTools extends React.Component {
         this.setState({ initiated: true });
       }
     }
-  }
+  };
 
   render() {
     if (this.state.initiated) {

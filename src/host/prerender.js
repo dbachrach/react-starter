@@ -8,7 +8,6 @@ import { reduxReactRouter, match } from 'redux-router/server';
 import configureStore from '../store/configure-store.js';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 
-import configure from './configure.js';
 import { createHost } from './host.jsx';
 import { initialStateName } from './constants.js';
 
@@ -60,13 +59,12 @@ const prerenderPage = (url, outPage, runActions) => {
 };
 
 export default (outDir) => {
-  return configure()
-    .then(() => {
-      return prerenderPage('/', join(outDir, 'index.html'), store => {
-        return store.dispatch(startOverAction());
-      });
-    })
-    .then(() => {
-      return prerenderPage('/privacy', join(outDir, 'privacy.html'));
-    });
+  return prerenderPage('/', join(outDir, 'index.html'), store => {
+    // You can dispatch some actions
+    // return store.dispatch(anAction());
+  });
+  // You can render more pages like this:
+  // .then(() => {
+  //   return prerenderPage('/privacy', join(outDir, 'privacy.html'));
+  // });
 };

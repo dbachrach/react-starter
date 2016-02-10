@@ -1,7 +1,7 @@
 import storage      from 'redux-storage';
 import createEngine from 'redux-storage/engines/localStorage';
 
-let engine = storage.decorators.filter(createEngine('upnext-save-key'), [
+let engine = storage.decorators.filter(createEngine('react-starter-save-key'), [
   // These keys will be stored to local storage
 ]);
 
