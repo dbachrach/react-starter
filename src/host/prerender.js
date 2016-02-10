@@ -11,8 +11,6 @@ import createMemoryHistory from 'history/lib/createMemoryHistory';
 import { createHost } from './host.jsx';
 import { initialStateName } from './constants.js';
 
-import { startOverAction } from '../modules/wizard.js';
-
 const routeStore = (store, url) => {
   return new Promise((pResolve, pReject) => {
     store.dispatch(match(url, (error, redirectLocation, routerState) => {
