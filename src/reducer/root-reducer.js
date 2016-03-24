@@ -1,7 +1,7 @@
 import mapValues              from 'lodash.mapvalues';
 import { combineReducers }    from 'redux';
-import { routerStateReducer } from 'redux-router';
-import Storage                from 'redux-storage';
+import { routerReducer } from 'react-router-redux';
+import * as storage           from 'redux-storage';
 
 // We need to support directory-based require in both browserify
 // and node.
@@ -17,8 +17,8 @@ catch (e) {
 
 const allReducers = mapValues(allModules, 'reducer');
 
-allReducers.router = routerStateReducer;
+allReducers.routing = routerReducer;
 
 // Combine all those reducers into one reducer
 // wrap the main reducer in a storage reducer for saving and loading data.
-export default Storage.reducer(combineReducers(allReducers));
+export default storage.reducer(combineReducers(allReducers));

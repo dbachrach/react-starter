@@ -1,66 +1,72 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
+import { Provider } from 'react-redux';
+import { createMemoryHistory, match, RouterContext } from 'react-router';
+import Helmet from 'react-helmet';
 import { readFile, writeFile } from 'fs-promise';
 import { resolve, join } from 'path';
 import serialize from 'serialize-javascript';
-import { reduxReactRouter, match } from 'redux-router/server';
 
 import configureStore from '../store/configure-store.js';
-import createMemoryHistory from 'history/lib/createMemoryHistory';
 
-import { createHost } from './host.jsx';
 import { initialStateName } from './constants.js';
+import routes from '../routes/routes.jsx';
 
-const routeStore = (store, url) => {
+const routeStore = (store, history, url) => {
   return new Promise((pResolve, pReject) => {
-    store.dispatch(match(url, (error, redirectLocation, routerState) => {
+    match({ routes, history, location: url }, (error, redirectLocation, renderProps) => {
       if (error) {
         console.error('Router error:', error);
         pReject(error);
       }
-      else if (!routerState) {
+      else if (redirectLocation) {
+        pResolve(routeStore(store, history, redirectLocation.pathname));
+      }
+      else if (!renderProps) {
         console.error('Router no state');
         pReject(new Error('No Router state'));
       }
       else {
-        pResolve();
+        const content = (
+          <Provider store={store}>
+            <RouterContext {...renderProps} />
+          </Provider>
+        );
+        const renderedContent = renderToString(content);
+        const head = Helmet.rewind();
+        const storeState = serialize(store.getState());
+        pResolve({ renderedContent, head, storeState });
       }
-    }));
+    });
   });
 };
 
-const prerenderPage = (url, outPage, runActions) => {
-  const store = configureStore(createMemoryHistory, reduxReactRouter);
+const prerenderPage = (url, outPage) => {
+  const { store, history } = configureStore({
+    history: createMemoryHistory(url)
+  });
 
-  return routeStore(store, url)
-    .then(() => {
-      if (runActions) {
-        return runActions(store);
-      }
-    })
-    .then(() => {
-      return readFile(resolve(__dirname, 'index.html'), 'utf-8');
-    })
-    .then(html => {
-      const host = createHost(store);
-      const indexRender = renderToString(host);
+  return routeStore(store, history, url)
+    .then(({ renderedContent, head, storeState }) => {
 
-      const initialState = serialize(store.getState());
-      const initialStateScript = `<script>window.${initialStateName} = ${initialState};</script>`;
+      readFile(resolve(__dirname, 'index.html'), 'utf-8')
+        .then(html => {
+          const initialStateScript = `<script>window.${initialStateName} = ${storeState};</script>`;
 
-      const finalHtml = html
-        .replace('<!-- PRERENDER:MOUNT -->', indexRender)
-        .replace('<!-- PRERENDER:STATE -->', initialStateScript);
+          const finalHtml = html
+            .replace('<!-- PRERENDER:MOUNT -->', renderedContent)
+            .replace('<!-- PRERENDER:STATE -->', initialStateScript)
+            .replace('<!-- PRERENDER:META -->', `${head.title.toString()}${head.meta.toString()}`);
 
-      return writeFile(outPage, finalHtml);
+          return writeFile(outPage, finalHtml);
+        });
     });
 };
 
 export default (outDir) => {
-  return prerenderPage('/', join(outDir, 'index.html'), store => {
-    // You can dispatch some actions
-    // return store.dispatch(anAction());
-  });
+  return prerenderPage('/', join(outDir, 'index.html'));
   // You can render more pages like this:
   // .then(() => {
   //   return prerenderPage('/privacy', join(outDir, 'privacy.html'));

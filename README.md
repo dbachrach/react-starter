@@ -19,6 +19,12 @@ gulp
 
 This will watch all project files and rebuild automatically.
 
+You can view the site at:
+
+```
+localhost:8000
+```
+
 ## Production Build
 
 Production builds are minified. To generate a production build, run:

@@ -52,7 +52,7 @@
     "no-alert": 1,              // disallow the use of alert, confirm, and prompt
     "no-caller": 1,             // disallow use of arguments.caller or arguments.callee
     "no-div-regex": 1,          // disallow division operators explicitly at beginning of regular expression (off by default)
-    "no-empty-label": 1,        // disallow use of labels for anything other then loops and switches
+    "no-labels": 1,        // disallow use of labels for anything other then loops and switches
     "no-eq-null": 1,            // disallow comparisons to null without a type-checking operator (off by default)
     "no-eval": 1,               // disallow use of eval()
     "no-extend-native": 1,      // disallow adding to native types
@@ -61,7 +61,6 @@
     "no-floating-decimal": 1,   // disallow the use of leading or trailing decimal points in numeric literals (off by default)
     "no-implied-eval": 1,       // disallow use of eval()-like methods
     "no-iterator": 1,           // disallow usage of __iterator__ property
-    "no-labels": 1,             // disallow use of labeled statements
     "no-lone-blocks": 1,        // disallow unnecessary nested blocks
     "no-loop-func": 1,          // disallow creation of functions within loops
     "no-multi-str": 1,          // disallow use of multiline strings
@@ -102,6 +101,7 @@
 
     ////////// Stylistic Issues //////////
 
+    "keyword-spacing": [2, {"before": true, "after": true, "overrides": {}}],
     "brace-style": [1, "stroustrup"],               // enforce one true brace style (off by default)
     "camelcase": 1,                 // require camel case names
     "comma-spacing": 1,             // enforce spacing before and after comma
@@ -110,7 +110,7 @@
     "eol-last": 1,                  // enforce newline at the end of file, with no multiple empty lines
     "func-style": 1,                // enforces use of function declarations or expressions (off by default)
     "max-nested-callbacks": 1,      // specify the maximum depth callbacks can be nested (off by default)
-    "new-cap": 1,                   // require a capital letter for constructors
+    "new-cap": 0,                   // require a capital letter for constructors
     "new-parens": 1,                // disallow the omission of parentheses when invoking a constructor with no arguments
     "no-array-constructor": 1,      // disallow use of the Array constructor
     "no-lonely-if": 1,              // disallow if as the only statement in an else block (off by default)
@@ -126,21 +126,19 @@
     "jsx-quotes": [2, "prefer-double"],
     "semi": 1,                      // require or disallow use of semicolons instead of ASI
     "sort-vars": 1,                 // sort variables within the same declaration block (off by default)
-    "space-after-keywords": 1,      // require a space after certain keywords (off by default)
     "space-before-blocks": 1,       // require or disallow space before blocks (off by default)
     "space-infix-ops": 1,           // require spaces around operators
-    "space-return-throw-case": 1,   // require a space after return, throw, and case
     "space-unary-ops": 1,           // Require or disallow spaces before/after unary operators (words on by default, nonwords off by default)
 
     ////////// REACT //////////
-    "react/display-name": [1, { "acceptTranspilerName": true }],
+    "react/display-name": 1,
     "react/jsx-boolean-value": 1,
     "react/jsx-curly-spacing": 1,
     "react/jsx-max-props-per-line": 1,
     "react/jsx-no-duplicate-props": 1,
     "react/jsx-no-undef": 1,
     "react/jsx-quotes": 0,
-    "react/jsx-sort-prop-types": 1,
+    "react/sort-prop-types": 1,
     "react/jsx-sort-props": 0,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,
