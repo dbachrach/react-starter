@@ -2,6 +2,10 @@ import util from 'gulp-util';
 
 export default {
   production: !!util.env.production,
+  ports: {
+    serve: 8003,
+    livereload: 35733
+  },
   paths: {
     build: {
       glob: [

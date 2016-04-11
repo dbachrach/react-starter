@@ -10,7 +10,8 @@
     "mocha": true
   },
   "plugins": [
-    "react"
+    "react",
+    "import"
   ],
   "globals": {
     "analytics": true
@@ -152,6 +153,16 @@
     "react/require-extension": 0,
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
-    "react/wrap-multilines": 1
+    "react/wrap-multilines": 1,
+
+    /////////// Import /////////
+    "import/no-unresolved": [2, {commonjs: true, amd: true}],
+    "import/imports-first": [2, "absolute-first"],
+    "import/named": 2,
+    "import/namespace": 2,
+    "import/no-duplicates": 2,
+    "import/default": 2,
+    "import/export": 2
+
   }
 }

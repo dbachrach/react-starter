@@ -55,6 +55,7 @@
     "del": "^2.1.0",
     "envify": "^3.4.0",
     "eslint": "^2.4.0",
+    "eslint-plugin-import": "^1.4.0",
     "eslint-plugin-react": "^4.2.3",
     "exorcist": "^0.4.0",
     "expect.js": "^0.3.1",
