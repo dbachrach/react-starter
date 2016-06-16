@@ -54,3 +54,12 @@ You can now access:
 ```
 react-starter.dev
 ```
+
+# Using Redux DevTools
+
+There are powerful Redux developer tools to help you debug your state and actions.
+
+1. Download the [Redux DevTools chrome extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd)
+2. With the site running, open the Chrome Inspector and choose the "Redux" tab.
+
+For more details, check out [the repo](https://github.com/zalmoxisus/redux-devtools-extension/).

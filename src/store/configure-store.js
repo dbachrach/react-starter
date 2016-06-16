@@ -1,30 +1,26 @@
-import { compose, applyMiddleware, createStore } from 'redux';
-import thunkMiddleware                           from 'redux-thunk';
+import { compose, applyMiddleware, createStore }  from 'redux';
+import thunkMiddleware                            from 'redux-thunk';
 import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux';
+import window                                     from 'global/window';
 
 import rootReducer from '../reducer/root-reducer.js';
 
-export default ({ history, storageMiddleware, initialState }) => {
+export default ({ history, storageMiddleware, initialState, enhanceHistory }) => {
   const middlewares = [
     thunkMiddleware,
-    routerMiddleware(history)
+    routerMiddleware(history),
+    ...(storageMiddleware ? [storageMiddleware] : [])
   ];
-
-  if (storageMiddleware) {
-    middlewares.push(storageMiddleware);
-  }
 
   const enhancers = [
-    applyMiddleware(...middlewares)
+    applyMiddleware(...middlewares),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
   ];
 
-  if (process.env.NODE_ENV === 'development') {
-    const DevTools = require('../components/dev-tools.jsx').Tools;
-    enhancers.push(DevTools.instrument());
-  }
-
   const store = createStore(rootReducer, initialState, compose(...enhancers));
-  const enhancedHistory = syncHistoryWithStore(history, store);
 
-  return { store, history: enhancedHistory };
+  return {
+    store,
+    history: enhanceHistory ? history : syncHistoryWithStore(history, store)
+  };
 };

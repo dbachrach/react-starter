@@ -37,7 +37,8 @@ const { store, history } = configureStore({
     }
   }),
   initialState: window[initialStateName],
-  storageMiddleware
+  storageMiddleware,
+  enhanceHistory: true
 });
 
 // Load saved state from Storage

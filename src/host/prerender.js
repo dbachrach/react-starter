@@ -45,7 +45,8 @@ const routeStore = (store, history, url) => {
 
 const prerenderPage = (url, outPage) => {
   const { store, history } = configureStore({
-    history: createMemoryHistory(url)
+    history: createMemoryHistory(url),
+    enhanceHistory: false
   });
 
   return routeStore(store, history, url)
