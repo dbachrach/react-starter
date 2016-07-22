@@ -7,7 +7,7 @@ import config from '../gulp.config.js';
 gulp.task('deploy', done => {
   return surge({
     project: config.paths.dist.root,
-    domain: 'react-starter.surge.sh'
+    domain: `${config.project}.surge.sh`
   });
 });
 

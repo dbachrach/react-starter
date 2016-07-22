@@ -5,7 +5,7 @@
 import { createAction, handleActions } from 'redux-actions';
 
 // ActionTypes
-export const ACTION_TYPE_NAME = 'upnext/module-name/ACTION_TYPE_NAME';
+export const ACTION_TYPE_NAME = 'react-starter/module-name/ACTION_TYPE_NAME';
 
 // Actions
 export const actionNameAction = createAction(ACTION_TYPE_NAME);

@@ -1,6 +1,7 @@
 import util from 'gulp-util';
 
 export default {
+  project: require('./package.json').name,
   production: !!util.env.production,
   ports: {
     serve: 8003,
@@ -13,7 +14,7 @@ export default {
         'gulp.config.js'
       ]
     },
-    html: 'src/host/index.html',
+    html: 'src/host/html/index.html',
     content: {
       assets: 'src/assets/**/*.*',
       statics: 'static/**/*.*'
@@ -23,7 +24,7 @@ export default {
         'src/**/*.js',
         'src/**/*.jsx'
       ],
-      entrypoint: 'src/host/client.js'
+      entrypoint: 'src/host/entrypoint/client.js'
     },
     sass: {
       glob: [

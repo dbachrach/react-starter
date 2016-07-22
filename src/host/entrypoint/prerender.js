@@ -1,18 +1,17 @@
 import 'babel-polyfill';
 
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { Provider } from 'react-redux';
+import React                                         from 'react';
+import { renderToString }                            from 'react-dom/server';
+import { Provider }                                  from 'react-redux';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
-import Helmet from 'react-helmet';
-import { readFile, writeFile } from 'fs-promise';
-import { resolve, join } from 'path';
-import serialize from 'serialize-javascript';
+import Helmet                                        from 'react-helmet';
+import { readFile, writeFile }                       from 'fs-promise';
+import { resolve, join }                             from 'path';
+import serialize                                     from 'serialize-javascript';
 
-import configureStore from '../store/configure-store.js';
-
-import { initialStateName } from './constants.js';
-import routes from '../routes/routes.jsx';
+import configureStore       from '../store/configure-store.js';
+import { initialStateName } from '../util/constants.js';
+import routes               from '../routes/routes.jsx';
 
 const routeStore = (store, history, url) => {
   return new Promise((pResolve, pReject) => {

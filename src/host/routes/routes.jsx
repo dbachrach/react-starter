@@ -1,7 +1,7 @@
-import React from 'react';
+import React                 from 'react';
 import { Route, IndexRoute } from 'react-router';
 
-import App from '../containers/app.jsx';
+import App from '../components/app.jsx';
 
 export default (
   <Route path="/"
