@@ -51,7 +51,7 @@ const prerenderPage = (url, outPage) => {
   return routeStore(store, history, url)
     .then(({ renderedContent, head, storeState }) => {
 
-      readFile(resolve(__dirname, 'index.html'), 'utf-8')
+      readFile(resolve(__dirname, '../html', 'index.html'), 'utf-8')
         .then(html => {
           const initialStateScript = `<script>window.${initialStateName} = ${storeState};</script>`;
 
